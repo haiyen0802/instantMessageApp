@@ -2,13 +2,7 @@ package vn.edu.tlu.haiyen.sayo;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,8 +11,10 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 
-
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,18 +22,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Login_activity extends AppCompatActivity {
-    EditText edtPhone, edtPassword;
-    Button btnLogin;
-    TextView txtSignup, txtForgot;
-    TextView txtPasswordError;
+    private EditText edtPhone, edtPassword;
+    private Button btnLogin;
+    private TextView txtSignup, txtForgot, txtPasswordError;
 
-    DatabaseReference databaseRef;
+    private DatabaseReference databaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
+
+        // Ánh xạ các thành phần
         edtPhone = findViewById(R.id.edtPhone);
         edtPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -48,6 +45,7 @@ public class Login_activity extends AppCompatActivity {
         // Tham chiếu tới "Users" trong Firebase Database
         databaseRef = FirebaseDatabase.getInstance().getReference("taikhoan");
 
+        // Sự kiện nhấn nút Đăng nhập
         btnLogin.setOnClickListener(v -> {
             String phone = edtPhone.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
@@ -65,13 +63,14 @@ public class Login_activity extends AppCompatActivity {
                         String correctPassword = snapshot.child("mk").getValue(String.class);
                         if (password.equals(correctPassword)) {
                             Toast.makeText(Login_activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            txtPasswordError.setVisibility(TextView.GONE); // Ẩn nếu đúng
+                            txtPasswordError.setVisibility(View.GONE); // Ẩn lỗi
 
-                            // Chuyển sang màn hình chính
-                            // startActivity(new Intent(Login_activity.this, HomeActivity.class));
-                            // finish();
+                            // Chuyển sang HomeActivity khi đăng nhập thành công
+                            Intent intent = new Intent(Login_activity.this, Home_Activity.class);
+                            startActivity(intent);
+                            finish(); // Kết thúc Activity hiện tại
                         } else {
-                            txtPasswordError.setVisibility(TextView.VISIBLE); // Hiện lỗi
+                            txtPasswordError.setVisibility(View.VISIBLE); // Hiện lỗi
                         }
                     } else {
                         Toast.makeText(Login_activity.this, "Số điện thoại không tồn tại", Toast.LENGTH_SHORT).show();
@@ -85,11 +84,13 @@ public class Login_activity extends AppCompatActivity {
             });
         });
 
+        // Sự kiện nhấn liên kết Đăng ký
         txtSignup.setOnClickListener(v -> {
             Intent intent = new Intent(Login_activity.this, Signup_activity.class);
             startActivity(intent);
         });
 
+        // Sự kiện nhấn liên kết Quên mật khẩu
         txtForgot.setOnClickListener(v -> {
             String phone = edtPhone.getText().toString().trim();
 
@@ -102,8 +103,8 @@ public class Login_activity extends AppCompatActivity {
             intent.putExtra("phone", phone); // Truyền số điện thoại sang Resign_activity
             startActivity(intent);
         });
-
     }
+
     private void showEmptyFieldsDialog() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_empty_fields);

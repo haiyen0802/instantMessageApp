@@ -1,102 +1,152 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFDDE6"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    android:background="#FFDDE6">
-
-    <!-- Phần trên cuộn được -->
+    <!-- Nội dung cuộn được -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="300px"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:paddingHorizontal="24dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:gravity="center_horizontal">
 
-            <!-- Logo + tiêu đề + input phone/password + lỗi -->
+            <!-- Logo -->
             <ImageView
                 android:id="@+id/imageView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/sayo" />
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                app:srcCompat="@drawable/sayo"
+                android:contentDescription="Logo" />
 
+            <!-- Tiêu đề -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Log in to your account"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:text="Đăng nhập vào tài khoản của bạn"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:layout_marginBottom="28dp" />
 
-            <EditText
-                android:id="@+id/edtPhone"
+            <!-- Số điện thoại -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:hint="phone number"
-                android:inputType="phone"
-                android:padding="12dp" />
+                android:hint="Số điện thoại"
+                app:boxStrokeColor="#FF80AB"
+                app:hintTextColor="#FF80AB"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <EditText
-                android:id="@+id/edtPassword"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:padding="12dp"
+                    android:textColor="#212121"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Mật khẩu -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="password"
-                android:inputType="textPassword"
-                android:padding="12dp" />
+                android:hint="Mật khẩu"
+                app:boxStrokeColor="#FF80AB"
+                app:hintTextColor="#FF80AB"
+                app:endIconMode="password_toggle"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:padding="12dp"
+                    android:textColor="#212121"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Lỗi mật khẩu -->
             <TextView
                 android:id="@+id/txtPasswordError"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="You have entered the incorrect password"
+                android:layout_marginTop="8dp"
+                android:text="Bạn đã nhập sai mật khẩu"
                 android:textColor="#E53935"
                 android:textSize="14sp"
                 android:visibility="gone" />
 
+            <!-- Quên mật khẩu -->
             <TextView
                 android:id="@+id/txtForgot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginTop="8dp"
-                android:text="forgot password"
-                android:textColor="#FF1493" />
+                android:layout_marginTop="12dp"
+                android:text="Quên mật khẩu?"
+                android:textColor="#FF80AB"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
     </ScrollView>
 
-    <!-- Phần cố định ở dưới -->
+    <!-- Nút và liên kết đăng ký -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:paddingHorizontal="24dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="24dp">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#FF99CC"
-            android:text="Log in"
+            android:layout_height="56dp"
+            android:text="Đăng nhập"
+            android:textSize="16sp"
+            android:textStyle="bold"
             android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+            app:backgroundTint="#FF80AB"
+            app:cornerRadius="12dp"
+            app:rippleColor="#80FFFFFF"
+            style="@style/Widget.MaterialComponents.Button" />
 
         <TextView
             android:id="@+id/txtSignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_gravity="center_horizontal"
-            android:text="Don't have an account? Sign up"
-            android:textColor="#000000" />
+            android:layout_gravity="center"
+            android:text="Chưa có tài khoản? Đăng ký"
+            android:textColor="#FF80AB"
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
