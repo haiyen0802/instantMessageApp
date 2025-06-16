@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "437604856246",
+    "firebase_url": "https://sayochat-80bcd-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sayochat-80bcd",
+    "storage_bucket": "sayochat-80bcd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437604856246:android:84bb4937763c75be165117",
+        "android_client_info": {
+          "package_name": "com.company.sayo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEWBJF6HSm6GwE5D9WD_K4tegZzNtpc3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
