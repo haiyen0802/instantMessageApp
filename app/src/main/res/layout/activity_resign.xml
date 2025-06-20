@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Logo -->
             <ImageView
                 android:id="@+id/imageView9"
                 android:layout_width="match_parent"
@@ -24,8 +25,9 @@
                 android:layout_marginTop="100dp"
                 app:srcCompat="@drawable/sayo" />
 
+            <!-- Tiêu đề -->
             <TextView
-                android:text="Create a new password"
+                android:text="Khôi phục mật khẩu"
                 android:textStyle="bold"
                 android:textSize="22sp"
                 android:layout_marginBottom="4dp"
@@ -33,42 +35,47 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <!-- Mô tả -->
             <TextView
-                android:text="Enter a new password and try not to forget it."
+                android:text="Nhập email và chúng tôi sẽ gửi link đặt lại mật khẩu cho bạn."
                 android:textSize="14sp"
                 android:textColor="#444"
                 android:layout_marginBottom="24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <EditText
-                android:id="@+id/edtNewPassword"
+            <!-- Email -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="new password"
-                android:inputType="textPassword"
-                android:background="@android:drawable/edit_text"
-                android:padding="12dp" />
+                android:hint="Email"
+                app:boxStrokeColor="#FF80AB"
+                app:hintTextColor="#FF80AB"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <EditText
-                android:id="@+id/edtConfirmPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="re-enter the new password"
-                android:inputType="textPassword"
-                android:background="@android:drawable/edit_text"
-                android:padding="12dp"
-                android:layout_marginTop="12dp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:padding="12dp"
+                    android:textColor="#212121"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
     </ScrollView>
 
-    <!-- Nút nằm cố định ở dưới -->
-    <Button
+    <!-- Nút cố định ở dưới -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnContinue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Continue"
-        android:backgroundTint="#FF80AB"
+        android:text="Gửi yêu cầu"
+        android:textStyle="bold"
         android:textColor="#FFFFFF"
-        android:layout_margin="24dp" />
+        android:textSize="16sp"
+        app:backgroundTint="#FF80AB"
+        android:layout_margin="24dp"
+        style="@style/Widget.MaterialComponents.Button" />
 </LinearLayout>

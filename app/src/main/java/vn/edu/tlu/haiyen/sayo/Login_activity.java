@@ -1,32 +1,27 @@
 package vn.edu.tlu.haiyen.sayo;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.*;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.*;
+import com.google.firebase.database.*;
 
 public class Login_activity extends AppCompatActivity {
-    private EditText edtPhone, edtPassword;
+
+    private EditText edtEmail, edtPassword;
     private Button btnLogin;
     private TextView txtSignup, txtForgot, txtPasswordError;
 
-    private DatabaseReference databaseRef;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,89 +29,85 @@ public class Login_activity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        // Ánh xạ các thành phần
-        edtPhone = findViewById(R.id.edtPhone);
+        initViews();
+        initFirebase();
+        setupListeners();
+    }
+
+    private void initViews() {
+        edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
         txtSignup = findViewById(R.id.txtSignup);
         txtForgot = findViewById(R.id.txtForgot);
         txtPasswordError = findViewById(R.id.txtPasswordError);
+    }
 
-        // Tham chiếu tới "Users" trong Firebase Database
-        databaseRef = FirebaseDatabase.getInstance().getReference("taikhoan");
+    private void initFirebase() {
+        mAuth = FirebaseAuth.getInstance();
+    }
 
-        // Sự kiện nhấn nút Đăng nhập
-        btnLogin.setOnClickListener(v -> {
-            String phone = edtPhone.getText().toString().trim();
-            String password = edtPassword.getText().toString().trim();
+    private void setupListeners() {
+        btnLogin.setOnClickListener(v -> handleLogin());
+        txtSignup.setOnClickListener(v -> startActivity(new Intent(this, Signup_activity.class)));
+        txtForgot.setOnClickListener(v -> handleForgotPassword());
+    }
 
-            if (phone.isEmpty() || password.isEmpty()) {
-                showEmptyFieldsDialog();
-                return;
-            }
+    private void handleLogin() {
+        String email = edtEmail.getText().toString().trim();
+        String password = edtPassword.getText().toString().trim();
 
-            // Kiểm tra tài khoản trên Firebase
-            databaseRef.child(phone).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        String correctPassword = snapshot.child("mk").getValue(String.class);
-                        if (password.equals(correctPassword)) {
-                            Toast.makeText(Login_activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            txtPasswordError.setVisibility(View.GONE); // Ẩn lỗi
+        if (email.isEmpty() || password.isEmpty()) {
+            showEmptyFieldsDialog();
+            return;
+        }
 
-                            // Chuyển sang HomeActivity khi đăng nhập thành công
-                            Intent intent = new Intent(Login_activity.this, Home_Activity.class);
-                            startActivity(intent);
-                            finish(); // Kết thúc Activity hiện tại
-                        } else {
-                            txtPasswordError.setVisibility(View.VISIBLE); // Hiện lỗi
-                        }
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+
+                        // Nếu bạn cần lấy thêm thông tin từ Realtime Database, bạn có thể làm như sau:
+                        // DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+
+                        startActivity(new Intent(this, Home_Activity.class));
+                        finish();
                     } else {
-                        Toast.makeText(Login_activity.this, "Số điện thoại không tồn tại", Toast.LENGTH_SHORT).show();
+                        txtPasswordError.setVisibility(View.VISIBLE);
+                        Toast.makeText(this, "Đăng nhập thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }
+                });
+    }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(Login_activity.this, "Lỗi kết nối: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        });
+    private void handleForgotPassword() {
+        String email = edtEmail.getText().toString().trim();
 
-        // Sự kiện nhấn liên kết Đăng ký
-        txtSignup.setOnClickListener(v -> {
-            Intent intent = new Intent(Login_activity.this, Signup_activity.class);
-            startActivity(intent);
-        });
+        if (email.isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập email để đặt lại mật khẩu", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        // Sự kiện nhấn liên kết Quên mật khẩu
-        txtForgot.setOnClickListener(v -> {
-            String phone = edtPhone.getText().toString().trim();
-
-            if (phone.isEmpty()) {
-                Toast.makeText(Login_activity.this, "Vui lòng nhập số điện thoại để đặt lại mật khẩu", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Intent intent = new Intent(Login_activity.this, Resign_activity.class);
-            intent.putExtra("phone", phone); // Truyền số điện thoại sang Resign_activity
-            startActivity(intent);
-        });
+        mAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, "Đã gửi email đặt lại mật khẩu", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Lỗi: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void showEmptyFieldsDialog() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_empty_fields);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        // Làm mờ nền
-        dialog.getWindow().setDimAmount(0.7f); // Độ mờ, từ 0 đến 1
+        dialog.getWindow().setDimAmount(0.7f);
+        dialog.setCancelable(false);
 
         Button btnClose = dialog.findViewById(R.id.btnClose);
         btnClose.setOnClickListener(v -> dialog.dismiss());
 
-        dialog.setCancelable(false); // Không cho bấm ngoài để tắt
         dialog.show();
     }
 }
