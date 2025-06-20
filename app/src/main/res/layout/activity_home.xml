@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#FFDDE6"
     android:orientation="vertical">
 
@@ -70,13 +71,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Danh sách tin nhắn -->
-    <ListView
-        android:id="@+id/messageList"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewConversations"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:divider="@null"
-        android:dividerHeight="0dp" />
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_message" />
 
     <!-- Thanh điều hướng dưới -->
     <LinearLayout
