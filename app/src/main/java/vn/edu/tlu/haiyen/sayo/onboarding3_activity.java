@@ -13,12 +13,16 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class onboarding3_activity extends AppCompatActivity {
     Button btnlogin;
+    Button btnSignUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_onboarding3);
+
         btnlogin =(Button) findViewById(R.id.btnLogin);
+        btnSignUp = (Button) findViewById(R.id.btnSignUp);
+
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -26,5 +30,14 @@ public class onboarding3_activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(onboarding3_activity.this, Signup_activity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

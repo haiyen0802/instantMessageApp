@@ -57,6 +57,9 @@ public class SettingActivity extends AppCompatActivity {
             finish();
         });
 
+        btnProfile.setOnClickListener(v -> {
+        });
+
         btnSettings.setOnClickListener(v -> {
         });
     }
