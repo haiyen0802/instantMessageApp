@@ -1,5 +1,6 @@
 package vn.edu.tlu.haiyen.sayo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
@@ -66,5 +67,10 @@ public class Home_Activity extends AppCompatActivity {
         btnProfile.setOnClickListener(v -> {
             // TODO: chuyển màn hình
         });
+        ImageButton btnSettings = findViewById(R.id.btnSettings);
+        btnSettings.setOnClickListener(v -> {
+            startActivity(new Intent(Home_Activity.this, SettingActivity.class));
+        });
+
     }
 }

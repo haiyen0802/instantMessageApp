@@ -94,8 +94,8 @@
         <ImageButton
             android:id="@+id/btnMessages"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_dialog_email"
             android:contentDescription="Messages" />
@@ -109,5 +109,15 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_my_calendar"
             android:contentDescription="Profile" />
+
+        <!-- Nút cài đặt -->
+        <ImageButton
+            android:id="@+id/btnSettings"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_preferences"
+            android:contentDescription="Settings" />
     </LinearLayout>
 </LinearLayout>

@@ -37,7 +37,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         holder.imgAvatar.setImageResource(R.drawable.avatar_placeholder);
 
         // Giả lập số tin chưa đọc (bạn có thể lấy thật nếu muốn)
-        int unreadCount = 3; // bạn có thể thay bằng msg.unreadCount nếu có field đó
+        int unreadCount = 3;
 
         if (unreadCount > 0) {
             holder.tvUnreadCount.setVisibility(View.VISIBLE);
