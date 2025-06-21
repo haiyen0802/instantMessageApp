@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Home_Activity extends AppCompatActivity {
-    private RecyclerView recyclerView;
     private List<Message> messageList;
     private MessageAdapter adapter;
 
@@ -26,10 +25,11 @@ public class Home_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         // Ánh xạ các thành phần
-        recyclerView = findViewById(R.id.recyclerViewConversations);
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewConversations);
         ImageButton btnAdd = findViewById(R.id.btnAdd);
         ImageButton btnMessages = findViewById(R.id.btnMessages);
         ImageButton btnProfile = findViewById(R.id.btnProfile);
+        ImageButton btnSettings = findViewById(R.id.btnSettings);
 
         // Setup RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -57,20 +57,21 @@ public class Home_Activity extends AppCompatActivity {
 
         // Sự kiện cho nút "+"
         btnAdd.setOnClickListener(v -> {
-            // TODO: xử lý gửi tin nhắn
+            // TODO:
         });
 
         btnMessages.setOnClickListener(v -> {
-            // TODO: chuyển màn hình
+            // TODO:
         });
 
         btnProfile.setOnClickListener(v -> {
-            // TODO: chuyển màn hình
-        });
-        ImageButton btnSettings = findViewById(R.id.btnSettings);
-        btnSettings.setOnClickListener(v -> {
-            startActivity(new Intent(Home_Activity.this, SettingActivity.class));
+            // TODO:
         });
 
+        btnSettings.setOnClickListener(v -> {
+            Intent intent = new Intent(Home_Activity.this, SettingActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 }
