@@ -101,14 +101,34 @@
             android:contentDescription="Messages" />
 
         <!-- Nút người dùng -->
-        <ImageButton
-            android:id="@+id/btnProfile"
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_myplaces"
-            android:contentDescription="Profile" />
+            android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/btnProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_menu_myplaces"
+                android:contentDescription="Profile" />
+
+            <TextView
+                android:id="@+id/profile_badge"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="top|end"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/badge_background"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:text="3"
+                tools:visibility="visible" />
+        </FrameLayout>
 
         <!-- Nút cài đặt -->
         <ImageButton
