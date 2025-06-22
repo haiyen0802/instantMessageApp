@@ -48,4 +48,7 @@ dependencies {
     implementation (libs.material)
     implementation(libs.recyclerview)
     implementation(libs.recyclerview.selection)
+    implementation("com.google.firebase:firebase-storage")
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
 }
