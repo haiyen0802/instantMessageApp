@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/rounded_white"
+    android:padding="12dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/request_user_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/avatar_default"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/request_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên người gửi"
+        android:textSize="16sp"
+        android:textColor="#212121"
+        android:layout_toEndOf="@id/request_user_avatar"
+        android:layout_toStartOf="@id/buttons_layout"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_centerVertical="true"/>
+
+    <LinearLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true">
+
+        <Button
+            android:id="@+id/accept_button"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Đồng ý"
+            android:backgroundTint="#4CAF50"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/decline_button"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:text="Từ chối"
+            android:backgroundTint="#F44336"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+</RelativeLayout>

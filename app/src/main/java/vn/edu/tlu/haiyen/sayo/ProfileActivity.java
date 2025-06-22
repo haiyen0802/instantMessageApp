@@ -2,9 +2,11 @@ package vn.edu.tlu.haiyen.sayo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -132,6 +134,11 @@ public class ProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(ProfileActivity.this, SettingActivity.class);
             startActivity(intent);
             finish();
+        });
+        RelativeLayout friendRequestsLayout = findViewById(R.id.friend_requests_layout);
+
+        friendRequestsLayout.setOnClickListener(v -> {
+            startActivity(new Intent(ProfileActivity.this, FriendRequestsActivity.class));
         });
     }
 }
