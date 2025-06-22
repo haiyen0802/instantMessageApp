@@ -34,18 +34,18 @@ android {
 }
 
 dependencies {
-    implementation(libs.firebase.bom)
+    implementation(platform(libs.firebase.bom))
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation("com.google.firebase:firebase-auth")
+    implementation(libs.google.firebase.auth)
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation (libs.material)
-    implementation("androidx.recyclerview:recyclerview:1.4.0")
-    implementation("androidx.recyclerview:recyclerview-selection:1.2.0")
+    implementation(libs.recyclerview)
+    implementation(libs.recyclerview.selection)
 }

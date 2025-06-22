@@ -1,5 +1,7 @@
 package vn.edu.tlu.haiyen.sayo;
 
+
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -60,12 +62,11 @@ public class Home_Activity extends AppCompatActivity {
             // TODO:
         });
 
-        btnMessages.setOnClickListener(v -> {
-            // TODO:
-        });
+        btnMessages.setOnClickListener(v -> { });
 
         btnProfile.setOnClickListener(v -> {
-            // TODO:
+            Intent intent = new Intent(Home_Activity.this, ProfileActivity.class);
+            startActivity(intent);
         });
 
         btnSettings.setOnClickListener(v -> {

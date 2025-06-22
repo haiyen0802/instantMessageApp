@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Search"
+        android:hint="@string/search"
         app:boxStrokeColor="#FF80AB"
         app:hintTextColor="#FF80AB"
         app:boxCornerRadiusTopStart="8dp"
@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_my_calendar"
+            android:src="@android:drawable/ic_menu_myplaces"
             android:contentDescription="Profile" />
 
         <!-- Nút cài đặt -->
