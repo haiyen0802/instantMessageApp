@@ -59,7 +59,8 @@ public class Home_Activity extends AppCompatActivity {
 
         // Sự kiện cho nút "+"
         btnAdd.setOnClickListener(v -> {
-            // TODO:
+            Intent intent = new Intent(Home_Activity.this, FindFriendsActivity.class);
+            startActivity(intent);
         });
 
         btnMessages.setOnClickListener(v -> { });

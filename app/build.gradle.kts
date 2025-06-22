@@ -51,4 +51,5 @@ dependencies {
     implementation("com.google.firebase:firebase-storage")
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }

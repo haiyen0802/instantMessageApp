@@ -50,6 +50,7 @@
         <activity
             android:name=".EditProfileActivity"
             android:label="Chỉnh sửa thông tin" />
+        <activity android:name=".FindFriendsActivity" />
     </application>
 
 </manifest>
