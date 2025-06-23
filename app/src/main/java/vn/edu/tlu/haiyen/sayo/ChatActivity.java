@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -42,9 +43,9 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         // Lấy thông tin từ Intent
-        friendId = getIntent().getStringExtra("FRIEND_ID");
-        friendName = getIntent().getStringExtra("FRIEND_NAME");
-        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        friendId = getIntent().getStringExtra("userId");
+        friendName = getIntent().getStringExtra("userName");
+        currentUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         // Setup Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);

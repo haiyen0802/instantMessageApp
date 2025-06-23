@@ -56,14 +56,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         holder.tvUnreadCount.setVisibility(View.GONE); // Ẩn badge tin chưa đọc
 
         // THAY ĐỔI 4: Thêm sự kiện click để mở màn hình chat
-        holder.itemView.setOnClickListener(v -> {
-            // Giả sử bạn có ChatActivity
-            Intent intent = new Intent(context, ChatActivity.class);
-            // Truyền thông tin của người bạn sang màn hình chat
-            intent.putExtra("FRIEND_ID", user.getUid());
-            intent.putExtra("FRIEND_NAME", user.getName());
-            intent.putExtra("FRIEND_AVATAR", user.getAvatar());
-            context.startActivity(intent);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ChatActivity.class);
+                // Gửi ID và tên của người bạn muốn chat qua cho ChatActivity
+                intent.putExtra("userId", user.getUid());
+                intent.putExtra("userName", user.getName());
+                context.startActivity(intent);
+            }
         });
     }
 
