@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="#FFDDE6"
     android:layout_width="match_parent"
@@ -45,40 +46,44 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Navbar dưới -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="#FFFFFF"
-        android:padding="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:gravity="center">
 
         <ImageButton
             android:id="@+id/btnMessages"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_dialog_email"
+            app:tint="#FF69B4"
             android:contentDescription="Messages" />
 
         <ImageButton
             android:id="@+id/btnProfile"
             android:layout_width="0dp"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Profile"
             android:src="@android:drawable/ic_menu_my_calendar"
-            android:contentDescription="Profile" />
+            app:tint="#FF69B4"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <ImageButton
             android:id="@+id/btnSettings"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_preferences"
+            app:tint="#FF69B4"
             android:contentDescription="Settings" />
     </LinearLayout>
 </LinearLayout>

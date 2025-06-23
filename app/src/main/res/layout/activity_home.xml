@@ -81,26 +81,28 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_message" />
 
-    <!-- Thanh điều hướng dưới -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="#FFFFFF"
-        android:padding="8dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
-        <!-- Nút tin nhắn -->
+        <!-- Nút Messages (giữ nguyên) -->
         <ImageButton
             android:id="@+id/btnMessages"
             android:layout_width="0dp"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Messages"
             android:src="@android:drawable/ic_dialog_email"
-            android:contentDescription="Messages" />
+            app:tint="#FF69B4" />
 
-        <!-- Nút người dùng -->
+        <!-- === BẮT ĐẦU PHẦN SỬA LỖI === -->
+        <!-- Bọc nút Profile trong FrameLayout để thêm huy hiệu -->
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -109,11 +111,14 @@
             <ImageButton
                 android:id="@+id/btnProfile"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@android:drawable/ic_menu_myplaces"
-                android:contentDescription="Profile" />
+                android:contentDescription="Profile"
+                android:src="@android:drawable/ic_menu_my_calendar"
+                app:tint="#FF69B4"
+                tools:ignore="TouchTargetSizeCheck" />
 
+            <!-- TextView này chính là huy hiệu bạn cần -->
             <TextView
                 android:id="@+id/profile_badge"
                 android:layout_width="20dp"
@@ -128,16 +133,21 @@
                 android:visibility="gone"
                 tools:text="3"
                 tools:visibility="visible" />
-        </FrameLayout>
 
-        <!-- Nút cài đặt -->
+        </FrameLayout>
+        <!-- === KẾT THÚC PHẦN SỬA LỖI === -->
+
+
+        <!-- Nút Settings (giữ nguyên) -->
         <ImageButton
             android:id="@+id/btnSettings"
             android:layout_width="0dp"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Settings"
             android:src="@android:drawable/ic_menu_preferences"
-            android:contentDescription="Settings" />
+            app:tint="#FF69B4" />
+
     </LinearLayout>
 </LinearLayout>
