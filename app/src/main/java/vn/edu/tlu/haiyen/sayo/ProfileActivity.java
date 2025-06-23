@@ -126,9 +126,7 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
         });
 
-        btnProfile.setOnClickListener(v -> {
-            // Đã ở trang này, không làm gì cả
-        });
+        btnProfile.setOnClickListener(v -> { });
 
         btnSettings.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, SettingActivity.class);

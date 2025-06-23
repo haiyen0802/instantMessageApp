@@ -3,7 +3,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginTop="28dp"
     android:layout_marginBottom="8dp"
     android:background="@drawable/rounded_white"
     android:padding="12dp">
@@ -40,9 +40,9 @@
             android:id="@+id/accept_button"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:text="Đồng ý"
             android:backgroundTint="#4CAF50"
-            android:textColor="@android:color/white"/>
+            android:text="Đồng ý"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/decline_button"

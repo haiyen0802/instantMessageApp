@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#FFFFFF"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
         app:title="Lời mời kết bạn"
-        app:titleTextColor="#212121"
-        app:navigationIcon="@drawable/baseline_arrow_back_24"/>
+        app:titleTextColor="#212121" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friend_requests_recycler_view"

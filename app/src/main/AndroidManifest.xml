@@ -51,6 +51,7 @@
             android:name=".EditProfileActivity"
             android:label="Chỉnh sửa thông tin" />
         <activity android:name=".FindFriendsActivity" />
+        <activity android:name=".FriendRequestsActivity" />
     </application>
 
 </manifest>
