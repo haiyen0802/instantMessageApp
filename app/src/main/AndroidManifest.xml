@@ -53,6 +53,10 @@
         <activity android:name=".FindFriendsActivity" />
         <activity android:name=".FriendRequestsActivity" />
         <activity android:name=".FriendsListActivity" />
+        <activity
+            android:name=".ChatActivity"
+            android:label="Trò chuyện"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
