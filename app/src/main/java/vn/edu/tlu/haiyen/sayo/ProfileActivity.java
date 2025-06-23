@@ -70,6 +70,11 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(this, "Dữ liệu chưa được tải xong, vui lòng chờ.", Toast.LENGTH_SHORT).show();
             }
         });
+        RelativeLayout friendsListLayout = findViewById(R.id.friends_list_layout);
+        friendsListLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, FriendsListActivity.class);
+            startActivity(intent);
+        });
 
         // Thiết lập các nút điều hướng
         setupNavigationButtons();

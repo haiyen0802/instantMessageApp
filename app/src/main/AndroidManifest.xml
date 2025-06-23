@@ -52,6 +52,7 @@
             android:label="Chỉnh sửa thông tin" />
         <activity android:name=".FindFriendsActivity" />
         <activity android:name=".FriendRequestsActivity" />
+        <activity android:name=".FriendsListActivity" />
     </application>
 
 </manifest>
