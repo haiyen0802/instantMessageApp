@@ -1,56 +1,72 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginTop="28dp"
+    android:orientation="horizontal"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
-    android:background="@drawable/rounded_white"
-    android:padding="12dp">
+    android:background="@drawable/item_request_background"
+    android:padding="16dp"
+    android:gravity="center_vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/request_user_avatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/avatar_default"
-        android:layout_centerVertical="true"/>
-
-    <TextView
-        android:id="@+id/request_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tên người gửi"
-        android:textSize="16sp"
-        android:textColor="#212121"
-        android:layout_toEndOf="@id/request_user_avatar"
-        android:layout_toStartOf="@id/buttons_layout"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_centerVertical="true"/>
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/avatar_default" />
 
     <LinearLayout
-        android:id="@+id/buttons_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true">
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp">
 
-        <Button
-            android:id="@+id/accept_button"
+        <TextView
+            android:id="@+id/request_user_name"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:backgroundTint="#4CAF50"
-            android:text="Đồng ý"
-            android:textColor="@android:color/white" />
+            android:layout_height="wrap_content"
+            android:text="Tên người gửi rất là dài để kiểm tra xem layout có bị vỡ không"
+            android:textSize="17sp"
+            android:textColor="#4A4A4A"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:ellipsize="end"/>
 
-        <Button
-            android:id="@+id/decline_button"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:text="Từ chối"
-            android:backgroundTint="#F44336"
-            android:textColor="@android:color/white"/>
+        <LinearLayout
+            android:id="@+id/buttons_layout"
+            android:layout_width="211dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/accept_button"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:background="@drawable/button_accept_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Đồng ý"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/decline_button"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/button_decline_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Xóa"
+                android:textAllCaps="false"
+                android:textColor="#555555"
+                tools:ignore="TouchTargetSizeCheck" />
+
+        </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

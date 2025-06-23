@@ -8,11 +8,12 @@
     android:background="#FFDDE6"
     android:fitsSystemWindows="true">
 
+    <!-- Toolbar: Đã đổi màu nền để hợp với tông hồng -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/profile_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#FFFFFF"
+        android:background="#FFB6C1"
         app:title="Trang cá nhân"
         app:titleTextColor="#212121" >
 
@@ -23,15 +24,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:text="Edit"
-            android:textColor="#FF69B4"
+            android:textColor="#FFFFFF"
             android:background="@android:color/transparent"
             android:paddingEnd="16dp"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold"/>
     </androidx.appcompat.widget.Toolbar>
 
 
-    <!-- Nội dung chính -->
+    <!-- Nội dung chính có thể cuộn -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -48,8 +49,8 @@
             <!-- Avatar -->
             <ImageView
                 android:id="@+id/imgAvatar"
-                android:layout_width="366dp"
-                android:layout_height="281dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_marginBottom="16dp"
                 android:src="@drawable/avatar_default" />
 
@@ -77,7 +78,6 @@
                 android:textStyle="bold"
                 android:layout_marginTop="16dp" />
 
-            <!-- Thẻ "Lời mời kết bạn" -->
             <TextView
                 android:id="@+id/txtBio"
                 android:layout_width="match_parent"
@@ -88,62 +88,108 @@
                 android:padding="12dp"
                 android:text="I'm a student at Thuy loi university..." />
 
+            <!-- SỬA LỖI TẠI ĐÂY -->
+            <!-- Thẻ "Lời mời kết bạn" - Giữ nguyên -->
             <RelativeLayout
                 android:id="@+id/friend_requests_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:background="@drawable/rounded_white"
-                android:padding="16dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="?attr/selectableItemBackground">
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/icon_friend_request"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/baseline_person_add_24"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/baseline_person_add_24"
                     app:tint="#FF69B4" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lời mời kết bạn"
-                    android:layout_toEndOf="@id/icon_friend_request"
-                    android:layout_marginStart="16dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_toEndOf="@id/icon_friend_request"
+                    android:text="Lời mời kết bạn"
+                    android:textColor="#212121"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#212121" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/friend_requests_count"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:background="@drawable/badge_background"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:gravity="center"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:background="@drawable/badge_background"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
                     android:visibility="gone"
                     tools:text="3"
                     tools:visibility="visible" />
             </RelativeLayout>
 
+            <!-- Thẻ "Danh sách bạn bè" - Đã được tách ra và tạo cấu trúc riêng -->
+            <RelativeLayout
+                android:id="@+id/friends_list_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_white"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/icon_friends_list"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_friends_list"
+                    app:tint="#FF69B4" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_toEndOf="@id/icon_friends_list"
+                    android:text="Danh sách bạn bè"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- Có thể thêm mũi tên ở đây nếu muốn -->
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_arrow_forward"
+                    app:tint="#BDBDBD" />
+
+            </RelativeLayout>
+            <!-- Kết thúc phần sửa lỗi -->
+
         </LinearLayout>
     </ScrollView>
 
-    <!-- Navbar giữ nguyên -->
+    <!-- Navbar: Thêm tint để icon có màu hồng đồng bộ -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="#FFFFFF"
-        android:padding="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:gravity="center">
 
         <ImageButton
@@ -153,6 +199,7 @@
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_dialog_email"
+            app:tint="#FF69B4"
             android:contentDescription="Messages" />
 
         <ImageButton
@@ -163,6 +210,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Profile"
             android:src="@android:drawable/ic_menu_my_calendar"
+            app:tint="#FF69B4"
             tools:ignore="TouchTargetSizeCheck" />
 
         <ImageButton
@@ -172,6 +220,7 @@
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_preferences"
+            app:tint="#FF69B4"
             android:contentDescription="Settings" />
     </LinearLayout>
 </LinearLayout>
