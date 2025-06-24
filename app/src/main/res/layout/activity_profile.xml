@@ -184,6 +184,7 @@
 
     <!-- Navbar: Thêm tint để icon có màu hồng đồng bộ -->
     <LinearLayout
+        android:id="@+id/navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

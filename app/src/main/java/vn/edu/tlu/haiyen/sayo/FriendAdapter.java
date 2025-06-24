@@ -1,6 +1,7 @@
 package vn.edu.tlu.haiyen.sayo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,22 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         } else {
             holder.imgAvatar.setImageResource(R.drawable.avatar_default);
         }
+
+        // === BƯỚC QUAN TRỌNG: THÊM SỰ KIỆN ONCLICK ===
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tạo một Intent để mở ProfileActivity
+                Intent intent = new Intent(context, ProfileActivity.class);
+
+                // Đặt dữ liệu cần gửi đi. Key "userId" phải khớp với key
+                // mà ProfileActivity sẽ nhận.
+                intent.putExtra("userId", user.getUid());
+
+                // Khởi chạy Activity mới
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

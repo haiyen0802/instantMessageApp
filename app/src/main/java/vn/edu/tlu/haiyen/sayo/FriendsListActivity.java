@@ -79,6 +79,9 @@ public class FriendsListActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 if (user != null) {
+                    // Gán UID từ key của snapshot vào đối tượng user
+                    user.setUid(snapshot.getKey());
+
                     friendList.add(user);
                     friendAdapter.notifyDataSetChanged(); // Cập nhật RecyclerView
                 }

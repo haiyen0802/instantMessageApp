@@ -88,6 +88,4 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             tvUnreadCount = itemView.findViewById(R.id.tvUnreadCount);
         }
     }
-
-    // Hàm formatTime không cần nữa, có thể xóa đi
 }
