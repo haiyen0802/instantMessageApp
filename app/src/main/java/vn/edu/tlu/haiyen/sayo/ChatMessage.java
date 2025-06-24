@@ -6,7 +6,6 @@ public class ChatMessage {
     private String messageText;
     private long timestamp;
 
-    // Constructor rỗng cần cho Firebase
     public ChatMessage() {
     }
 

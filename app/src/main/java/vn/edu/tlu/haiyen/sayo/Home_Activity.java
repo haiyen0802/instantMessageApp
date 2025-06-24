@@ -2,6 +2,8 @@ package vn.edu.tlu.haiyen.sayo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -12,18 +14,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputEditText; // Thêm import này
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors; // Thêm import này nếu dùng Java 8+
 
 public class Home_Activity extends AppCompatActivity {
-    // THAY ĐỔI 1: Đổi kiểu dữ liệu và tên biến cho rõ nghĩa
-    private List<User> friendList;
-    private MessageAdapter friendAdapter; // Tên biến là friendAdapter, nhưng kiểu vẫn là MessageAdapter đã sửa
+
+    // === BẮT ĐẦU PHẦN THAY ĐỔI 1 ===
+    private List<User> masterFriendList; // Danh sách chứa TẤT CẢ bạn bè
+    private List<User> displayedFriendList; // Danh sách được lọc để HIỂN THỊ
+    private MessageAdapter friendAdapter;
     private RecyclerView recyclerView;
+    private TextInputEditText edtSearch; // Thêm biến cho ô tìm kiếm
+    // === KẾT THÚC PHẦN THAY ĐỔI 1 ===
 
     private DatabaseReference friendRequestRef;
     private DatabaseReference friendsRef;
@@ -42,15 +50,19 @@ public class Home_Activity extends AppCompatActivity {
         ImageButton btnAdd = findViewById(R.id.btnAdd);
         ImageButton btnProfile = findViewById(R.id.btnProfile);
         ImageButton btnSettings = findViewById(R.id.btnSettings);
+        edtSearch = findViewById(R.id.edtSearch); // Ánh xạ ô tìm kiếm
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        // THAY ĐỔI 2: Setup RecyclerView với dữ liệu và adapter mới
+        // === BẮT ĐẦU PHẦN THAY ĐỔI 2 ===
+        // Setup RecyclerView với dữ liệu và adapter
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        friendList = new ArrayList<>();
-        // Truyền context và danh sách user vào adapter
-        friendAdapter = new MessageAdapter(this, friendList);
+        masterFriendList = new ArrayList<>();
+        displayedFriendList = new ArrayList<>();
+        // Adapter sẽ làm việc với `displayedFriendList`
+        friendAdapter = new MessageAdapter(this, displayedFriendList);
         recyclerView.setAdapter(friendAdapter);
+        // === KẾT THÚC PHẦN THAY ĐỔI 2 ===
 
         if (currentUser != null) {
             String currentUid = currentUser.getUid();
@@ -60,8 +72,10 @@ public class Home_Activity extends AppCompatActivity {
             usersRef = FirebaseDatabase.getInstance().getReference("users");
 
             listenForFriendRequests();
-            loadFriendList(); // THAY ĐỔI 3: Gọi hàm mới để tải bạn bè
+            loadFriendList();
         }
+
+        setupSearchListener(); // Gọi hàm cài đặt lắng nghe tìm kiếm
 
         // Các sự kiện click giữ nguyên
         btnAdd.setOnClickListener(v -> {
@@ -80,23 +94,70 @@ public class Home_Activity extends AppCompatActivity {
         });
     }
 
-    // THAY ĐỔI 4: Xóa listener cũ cho "messages" và thay bằng hàm này
+    // === BẮT ĐẦU PHẦN THAY ĐỔI 3: THÊM HÀM TÌM KIẾM ===
+    private void setupSearchListener() {
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Không cần làm gì ở đây
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Lọc danh sách ngay khi người dùng gõ
+                filterFriends(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Không cần làm gì ở đây
+            }
+        });
+    }
+
+    private void filterFriends(String query) {
+        // Xóa danh sách hiển thị hiện tại
+        displayedFriendList.clear();
+
+        // Nếu ô tìm kiếm trống, hiển thị tất cả bạn bè
+        if (query.isEmpty()) {
+            displayedFriendList.addAll(masterFriendList);
+        } else {
+            // Nếu có từ khóa, lọc từ danh sách master
+            // Chuyển cả tên người dùng và từ khóa về chữ thường để tìm kiếm không phân biệt hoa/thường
+            String lowerCaseQuery = query.toLowerCase();
+            for (User friend : masterFriendList) {
+                // Giả sử lớp User của bạn có phương thức getName()
+                if (friend.getName().toLowerCase().contains(lowerCaseQuery)) {
+                    displayedFriendList.add(friend);
+                }
+            }
+        }
+        // Thông báo cho adapter rằng dữ liệu đã thay đổi hoàn toàn
+        friendAdapter.notifyDataSetChanged();
+    }
+    // === KẾT THÚC PHẦN THAY ĐỔI 3 ===
+
+
     private void loadFriendList() {
         friendsRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot friendSnapshot, @Nullable String previousChildName) {
-                // Lấy UID của người bạn
                 String friendId = friendSnapshot.getKey();
                 if (friendId != null) {
-                    // Dùng UID đó để lấy thông tin chi tiết từ node "users"
                     usersRef.child(friendId).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot userSnapshot) {
                             User friend = userSnapshot.getValue(User.class);
                             if (friend != null) {
-                                friend.setUid(userSnapshot.getKey()); // Gán UID cho đối tượng
-                                friendList.add(friend);
-                                friendAdapter.notifyItemInserted(friendList.size() - 1);
+                                friend.setUid(userSnapshot.getKey());
+                                // === BẮT ĐẦU PHẦN THAY ĐỔI 4 ===
+                                // Thêm vào danh sách master
+                                masterFriendList.add(friend);
+                                // Lọc lại danh sách hiển thị để cập nhật giao diện
+                                // (quan trọng khi đang tìm kiếm mà có bạn mới được thêm vào)
+                                filterFriends(edtSearch.getText().toString());
+                                // === KẾT THÚC PHẦN THAY ĐỔI 4 ===
                             }
                         }
 
@@ -109,19 +170,27 @@ public class Home_Activity extends AppCompatActivity {
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                // Nếu thông tin bạn bè thay đổi (ví dụ: đổi tên), bạn cần cập nhật lại
+                // Tạm thời bỏ qua, nhưng có thể thêm logic ở đây sau
+            }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                // Xử lý khi hủy kết bạn
                 String friendIdToRemove = snapshot.getKey();
-                for (int i = 0; i < friendList.size(); i++) {
-                    if (friendList.get(i).getUid().equals(friendIdToRemove)) {
-                        friendList.remove(i);
-                        friendAdapter.notifyItemRemoved(i);
+                if (friendIdToRemove == null) return;
+
+                // === BẮT ĐẦU PHẦN THAY ĐỔI 5 ===
+                // Xóa khỏi danh sách master
+                for (int i = 0; i < masterFriendList.size(); i++) {
+                    if (masterFriendList.get(i).getUid().equals(friendIdToRemove)) {
+                        masterFriendList.remove(i);
                         break;
                     }
                 }
+                // Lọc lại danh sách hiển thị để cập nhật giao diện
+                filterFriends(edtSearch.getText().toString());
+                // === KẾT THÚC PHẦN THAY ĐỔI 5 ===
             }
 
             @Override
