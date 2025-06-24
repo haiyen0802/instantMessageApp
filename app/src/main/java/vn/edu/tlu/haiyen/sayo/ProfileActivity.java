@@ -63,25 +63,19 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
             return;
         }
-        Log.d("ProfileLifecycle", "loggedInUser.getUid(): " + loggedInUser.getUid());
         // === LOGIC QUAN TRỌNG: XÁC ĐỊNH USER ID CẦN HIỂN THỊ ===
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("userId")) {
-            Log.d("ProfileLifecycle", "Intent có chứa key 'userId'.");
             displayedUserId = intent.getStringExtra("userId");
-            Log.d("ProfileLifecycle", "Giá trị nhận được cho 'userId': " + displayedUserId);
 
             if (displayedUserId == null || displayedUserId.isEmpty()) {
-                Log.e("ProfileLifecycle", "Lỗi: displayedUserId là NULL hoặc RỖNG. Đang đóng Activity.");
                 Toast.makeText(this, "Lỗi: ID người dùng không hợp lệ.", Toast.LENGTH_SHORT).show();
                 finish();
                 return;
             }
         } else {
-            // Trường hợp 2: Xem profile của chính mình
             displayedUserId = loggedInUser.getUid();
         }
-        Log.d("ProfileLifecycle", "UserID cuối cùng sẽ được hiển thị: " + displayedUserId);
         // Lấy tham chiếu đến node của user cần hiển thị
         userRef = FirebaseDatabase.getInstance().getReference("users").child(displayedUserId);
 
@@ -93,7 +87,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Thiết lập sự kiện click
         setupClickListeners();
-        Log.d("ProfileLifecycle", "onCreate: Hoàn tất.");
     }
 
     private void updateUIMode() {
@@ -158,8 +151,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(v -> {
             if (displayedUserProfile != null) {
                 Intent editIntent = new Intent(ProfileActivity.this, EditProfileActivity.class);
-                // Bạn cần làm cho class User có thể "Parcelable" hoặc "Serializable" để gửi cả đối tượng
-                // Hoặc đơn giản là không cần gửi gì, EditProfileActivity sẽ tự tải dữ liệu của currentUser
+                editIntent.putExtra("USER_PROFILE", displayedUserProfile);
                 startActivity(editIntent);
             }
         });
